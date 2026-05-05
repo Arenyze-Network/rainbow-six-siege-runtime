@@ -1,0 +1,66 @@
+{
+  "name": "@r6-data-js/runtime",
+  "version": "0.1.0",
+  "description": "Runtime layer for r6-data.js with caching, request deduplication, retry, timeout and local rate limiting.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazeor9/r6-data.js-runtime.git"
+  },
+  "homepage": "https://github.com/mazeor9/r6-data.js-runtime#readme",
+  "bugs": {
+    "url": "https://github.com/mazeor9/r6-data.js-runtime/issues"
+  },
+  "funding": "https://buymeacoffee.com/mazeor",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "r6",
+    "r6-data.js",
+    "rainbow-six-siege",
+    "r6-siege",
+    "rainbow six",
+    "r6 siege",
+    "R6 Siege",
+    "Rainbow six",
+    "Rainbow six siege",
+    "cache",
+    "retry",
+    "rate-limit",
+    "typescript"
+  ],
+  "author": "mazeor",
+  "license": "MIT",
+  "peerDependencies": {
+    "r6-data.js": ">=3.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.9"
+  }
+}

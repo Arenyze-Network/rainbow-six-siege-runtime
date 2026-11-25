@@ -36,8 +36,8 @@ describe('MemoryCacheAdapter', () => {
 
 describe('createCacheKey', () => {
   it('creates stable keys for object arguments', () => {
-    const first = createCacheKey('players.getPlayerStats', [{ b: 2, a: 1 }]);
-    const second = createCacheKey('players.getPlayerStats', [{ a: 1, b: 2 }]);
+    const first = createCacheKey('players.getProfile', [{ b: 2, a: 1 }]);
+    const second = createCacheKey('players.getProfile', [{ a: 1, b: 2 }]);
 
     expect(first).toBe(second);
   });
@@ -77,8 +77,8 @@ describe('createCacheKey', () => {
   it('supports repeated object references without falling back', () => {
     const shared = { platformType: 'uplay' };
 
-    expect(createCacheKey('players.getAccountInfo', [shared, shared])).toBe(
-      createCacheKey('players.getAccountInfo', [
+    expect(createCacheKey('players.getProfile', [shared, shared])).toBe(
+      createCacheKey('players.getProfile', [
         { platformType: 'uplay' },
         { platformType: 'uplay' },
       ]),
@@ -89,8 +89,8 @@ describe('createCacheKey', () => {
     const circular: Record<string, unknown> = {};
     circular.self = circular;
 
-    expect(createCacheKey('players.getPlayerStats', [circular])).toBe(
-      'players.getPlayerStats:unserializable:object',
+    expect(createCacheKey('players.getProfile', [circular])).toBe(
+      'players.getProfile:unserializable:object',
     );
   });
 });

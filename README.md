@@ -1,56 +1,57 @@
-# @r6-data-js/runtime
+# @arenyze/rainbow-six-siege-runtime
 
-Optional runtime layer for `r6-data.js` with memory caching, request deduplication, retry, timeout and local rate limiting.
+Optional runtime layer for `@arenyze/rainbow-six-siege` with memory caching, request deduplication, retry, timeout and local rate limiting.
 
 <div align="center">
   <p>
-    <a href="https://github.com/mazeor9/r6-data.js-runtime/releases/latest">
-      <img src="https://img.shields.io/github/v/release/mazeor9/r6-data.js-runtime?style=for-the-badge" alt="GitHub release (latest SemVer)" />
+    <a href="https://github.com/Arenyze-Network/rainbow-six-siege-runtime/releases/latest">
+      <img src="https://img.shields.io/github/v/release/Arenyze-Network/rainbow-six-siege-runtime?style=for-the-badge" alt="GitHub release (latest SemVer)" />
     </a>
-    <a href="https://github.com/mazeor9/r6-data.js-runtime/releases/latest">
-      <img src="https://img.shields.io/github/release-date/mazeor9/r6-data.js-runtime?label=latest%20release&style=for-the-badge" alt="Latest release" />
+    <a href="https://github.com/Arenyze-Network/rainbow-six-siege-runtime/releases/latest">
+      <img src="https://img.shields.io/github/release-date/Arenyze-Network/rainbow-six-siege-runtime?label=latest%20release&style=for-the-badge" alt="Latest release" />
     </a>
-    <a href="https://www.npmjs.com/package/@r6-data-js/runtime">
-      <img src="https://img.shields.io/npm/v/@r6-data-js/runtime.svg?logo=npm&style=for-the-badge" alt="npm version" />
+    <a href="https://www.npmjs.com/package/@arenyze/rainbow-six-siege-runtime">
+      <img src="https://img.shields.io/npm/v/@arenyze/rainbow-six-siege-runtime.svg?logo=npm&style=for-the-badge" alt="npm version" />
     </a>
-    <a href="https://www.npmjs.com/package/@r6-data-js/runtime">
-      <img src="https://img.shields.io/npm/dt/@r6-data-js/runtime.svg?style=for-the-badge" alt="NPM downloads" />
+    <a href="https://www.npmjs.com/package/@arenyze/rainbow-six-siege-runtime">
+      <img src="https://img.shields.io/npm/dt/@arenyze/rainbow-six-siege-runtime.svg?style=for-the-badge" alt="NPM downloads" />
     </a>
   </p>
 </div>
 
-This package does not replace `r6-data.js`. You still create and configure the main `R6Client` yourself, then pass that instance to `createR6Runtime`.
+This package does not replace `@arenyze/rainbow-six-siege`. You still create and configure the main `R6Client` yourself, then pass that instance to `createR6Runtime`.
 
 It does not make direct API calls to R6Data and has no runtime dependencies.
 
 ## Installation
 
 ```sh
-npm install r6-data.js @r6-data-js/runtime
+npm install @arenyze/rainbow-six-siege @arenyze/rainbow-six-siege-runtime
 ```
 
 ## Basic Usage
 
 ```ts
-import { R6Client } from 'r6-data.js';
-import { createR6Runtime } from '@r6-data-js/runtime';
+import { R6Client } from '@arenyze/rainbow-six-siege';
+import { createR6Runtime } from '@arenyze/rainbow-six-siege-runtime';
 
 const client = new R6Client({ apiKey: process.env.R6_DATA_API_KEY! });
 const r6 = createR6Runtime(client);
 
-const stats = await r6.players.getPlayerStats({
+const profile = await r6.players.getProfile({
   nameOnPlatform: 'PlayerName',
   platformType: 'uplay',
   platform_families: 'pc',
-  board_id: 'ranked',
 });
+
+console.log(profile.stats);
 ```
 
 ## Memory Cache
 
 ```ts
-import { R6Client } from 'r6-data.js';
-import { createR6Runtime, MemoryCacheAdapter } from '@r6-data-js/runtime';
+import { R6Client } from '@arenyze/rainbow-six-siege';
+import { createR6Runtime, MemoryCacheAdapter } from '@arenyze/rainbow-six-siege-runtime';
 
 const client = new R6Client({ apiKey: process.env.R6_DATA_API_KEY! });
 
@@ -93,7 +94,7 @@ The rate limiter is an in-memory queue. It limits local execution only; it does 
 ## Custom Cache Adapter
 
 ```ts
-import type { CacheAdapter } from '@r6-data-js/runtime';
+import type { CacheAdapter } from '@arenyze/rainbow-six-siege-runtime';
 
 class MyCache implements CacheAdapter {
   private values = new Map<string, unknown>();
@@ -116,7 +117,7 @@ class MyCache implements CacheAdapter {
 }
 ```
 
-`@r6-data-js/runtime` intentionally does not include Redis, PostgreSQL, MongoDB or other databases. Use `CacheAdapter` if your app needs a custom cache backend.
+`@arenyze/rainbow-six-siege-runtime` intentionally does not include Redis, PostgreSQL, MongoDB or other databases. Use `CacheAdapter` if your app needs a custom cache backend.
 
 ## Options
 

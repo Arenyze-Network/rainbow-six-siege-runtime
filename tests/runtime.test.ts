@@ -21,7 +21,7 @@ describe('createR6Runtime', () => {
   it('keeps nested methods from the original client', async () => {
     const client = {
       players: {
-        async getPlayerStats(params: { nameOnPlatform: string }) {
+        async getProfile(params: { nameOnPlatform: string }) {
           return { name: params.nameOnPlatform };
         },
       },
@@ -29,7 +29,7 @@ describe('createR6Runtime', () => {
 
     const runtime = createR6Runtime(client);
 
-    await expect(runtime.players.getPlayerStats({ nameOnPlatform: 'PlayerName' })).resolves.toEqual({
+    await expect(runtime.players.getProfile({ nameOnPlatform: 'PlayerName' })).resolves.toEqual({
       name: 'PlayerName',
     });
   });
@@ -40,7 +40,7 @@ describe('createR6Runtime', () => {
 
     const client = {
       players: {
-        async getPlayerStats() {
+        async getProfile() {
           calls += 1;
           return pending.promise;
         },
@@ -49,8 +49,8 @@ describe('createR6Runtime', () => {
 
     const runtime = createR6Runtime(client, { dedupe: true });
 
-    const first = runtime.players.getPlayerStats();
-    const second = runtime.players.getPlayerStats();
+    const first = runtime.players.getProfile();
+    const second = runtime.players.getProfile();
 
     await Promise.resolve();
 
@@ -68,7 +68,7 @@ describe('createR6Runtime', () => {
 
     const client = {
       players: {
-        getPlayerStats() {
+        getProfile() {
           calls += 1;
           return Promise.resolve({ calls });
         },
@@ -77,8 +77,8 @@ describe('createR6Runtime', () => {
 
     const runtime = createR6Runtime(client, { cache });
 
-    await expect(runtime.players.getPlayerStats()).resolves.toEqual({ calls: 1 });
-    await expect(runtime.players.getPlayerStats()).resolves.toEqual({ calls: 1 });
+    await expect(runtime.players.getProfile()).resolves.toEqual({ calls: 1 });
+    await expect(runtime.players.getProfile()).resolves.toEqual({ calls: 1 });
     expect(calls).toBe(1);
   });
 
@@ -88,7 +88,7 @@ describe('createR6Runtime', () => {
 
     const client = {
       players: {
-        async getPlayerStats() {
+        async getProfile() {
           throw error;
         },
       },
@@ -96,12 +96,12 @@ describe('createR6Runtime', () => {
 
     const runtime = createR6Runtime(client, { onError });
 
-    await expect(runtime.players.getPlayerStats()).rejects.toBe(error);
+    await expect(runtime.players.getProfile()).rejects.toBe(error);
 
     expect(onError).toHaveBeenCalledTimes(1);
     expect(onError).toHaveBeenCalledWith(
       expect.objectContaining({
-        path: 'players.getPlayerStats',
+        path: 'players.getProfile',
         error,
       }),
     );
@@ -114,7 +114,7 @@ describe('createR6Runtime', () => {
 
     const client = {
       players: {
-        getPlayerStats() {
+        getProfile() {
           calls += 1;
 
           if (calls === 1) {
@@ -137,7 +137,7 @@ describe('createR6Runtime', () => {
       },
     });
 
-    const result = runtime.players.getPlayerStats();
+    const result = runtime.players.getProfile();
 
     await vi.advanceTimersByTimeAsync(0);
     expect(calls).toBe(1);
@@ -157,7 +157,7 @@ describe('createR6Runtime', () => {
 
     const client = {
       players: {
-        async getPlayerStats() {
+        async getProfile() {
           calls += 1;
           return { calls };
         },
@@ -169,8 +169,8 @@ describe('createR6Runtime', () => {
       ttl: 1000,
     });
 
-    await expect(runtime.players.getPlayerStats()).resolves.toEqual({ calls: 1 });
-    await expect(runtime.players.getPlayerStats()).resolves.toEqual({ calls: 1 });
+    await expect(runtime.players.getProfile()).resolves.toEqual({ calls: 1 });
+    await expect(runtime.players.getProfile()).resolves.toEqual({ calls: 1 });
     expect(calls).toBe(1);
   });
 });

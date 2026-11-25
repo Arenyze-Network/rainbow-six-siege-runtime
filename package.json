@@ -1,7 +1,7 @@
 {
-  "name": "@r6-data-js/runtime",
+  "name": "@arenyze/rainbow-six-siege-runtime",
   "version": "0.1.0",
-  "description": "Runtime layer for r6-data.js with caching, request deduplication, retry, timeout and local rate limiting.",
+  "description": "Runtime layer for @arenyze/rainbow-six-siege with caching, request deduplication, retry, timeout and local rate limiting.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -28,11 +28,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mazeor9/r6-data.js-runtime.git"
+    "url": "git+https://github.com/Arenyze-Network/rainbow-six-siege-runtime.git"
   },
-  "homepage": "https://github.com/mazeor9/r6-data.js-runtime#readme",
+  "homepage": "https://github.com/Arenyze-Network/rainbow-six-siege-runtime#readme",
   "bugs": {
-    "url": "https://github.com/mazeor9/r6-data.js-runtime/issues"
+    "url": "https://github.com/Arenyze-Network/rainbow-six-siege-runtime/issues"
   },
   "funding": "https://buymeacoffee.com/mazeor",
   "publishConfig": {
@@ -56,7 +56,7 @@
   "author": "mazeor",
   "license": "MIT",
   "peerDependencies": {
-    "r6-data.js": ">=3.0.0"
+    "@arenyze/rainbow-six-siege": ">=0.1.0"
   },
   "devDependencies": {
     "tsup": "^8.3.5",
